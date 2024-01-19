@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CompetitionView extends StatelessWidget {
-  const CompetitionView({super.key});
+class CompetitionGameView extends StatelessWidget {
+  const CompetitionGameView({super.key});
 
   @override
   Widget build(BuildContext context) {

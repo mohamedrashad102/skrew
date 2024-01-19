@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/app_images.dart';
+import '../constants/app_images.dart';
 
-class Logo extends StatelessWidget {
-  const Logo({
+class SkrewLogo extends StatelessWidget {
+  const SkrewLogo({
     super.key,
   });
 

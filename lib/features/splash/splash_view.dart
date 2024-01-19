@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skrew/common/routes/app_routes.dart';
 
-import 'widgets/logo.dart';
+import '../../common/widgets/skrew_logo.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Logo(),
+        child: SkrewLogo(),
       ),
     );
   }
