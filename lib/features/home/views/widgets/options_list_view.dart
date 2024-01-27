@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:skrew/features/home/cubit/players_number_cubit.dart';
-import 'package:skrew/features/home/cubit/players_number_state.dart';
+import 'package:skrew/features/home/cubits/players_number_cubit.dart';
+import 'package:skrew/features/home/cubits/players_number_state.dart';
 
 import 'options_item.dart';
 
-class OptionsList extends StatelessWidget {
-  const OptionsList({super.key});
+class OptionsListView extends StatelessWidget {
+  const OptionsListView({super.key});
 
   @override
   Widget build(BuildContext context) {

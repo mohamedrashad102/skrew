@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skrew/features/home/cubit/players_name_state.dart';
+import 'package:skrew/features/home/cubits/players_name_state.dart';
 
 class PlayersNameCubit extends Cubit<PlayersNamesState> {
   PlayersNameCubit() : super(PlayerNamesInitialState());
@@ -18,15 +18,27 @@ class PlayersNameCubit extends Cubit<PlayersNamesState> {
     'الثامن',
   ];
   final List<String> playersNames = [];
+  final List<FocusNode> focusNodes = [];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   initializePlayersNames({required int playersNumber}) {
     playersNames
       ..clear()
       ..addAll(
-        List.generate(playersNumber, (index) => ''),
+        List.generate(playersNumber, (_) => ''),
+      );
+    focusNodes
+      ..clear()
+      ..addAll(
+        List.generate(playersNumber, (_) => FocusNode()),
       );
     emit(PlayersNamesSuccessState());
+  }
+
+  disposeFocusNodes() {
+    for (int i = 0; i < focusNodes.length; i++) {
+      focusNodes[i].dispose();
+    }
   }
 
   editPlayerName({

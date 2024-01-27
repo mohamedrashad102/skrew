@@ -3,11 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skrew/common/routes/app_routes.dart';
 import 'package:skrew/common/widgets/custom_button.dart';
-import 'package:skrew/features/home/cubit/players_name_cubit.dart';
-import 'package:skrew/features/home/cubit/players_number_cubit.dart';
-import 'package:skrew/features/home/views/widgets/options_list.dart';
+import 'package:skrew/features/home/cubits/players_name_cubit.dart';
+import 'package:skrew/features/home/cubits/players_number_cubit.dart';
+import 'package:skrew/features/home/views/widgets/options_list_view.dart';
 
-import 'widgets/choose_players_number.dart';
+import 'widgets/choose_players_number_text.dart';
 
 class PlayersNumberView extends StatelessWidget {
   const PlayersNumberView({
@@ -25,9 +25,9 @@ class PlayersNumberView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const ChoosePlayersNumber(),
+            const ChoosePlayersNumberText(),
             const Gap(10),
-            const OptionsList(),
+            const OptionsListView(),
             const Gap(10),
             CustomButton(
               onTap: () => _navigateToPlayersNamesView(context),

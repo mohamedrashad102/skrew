@@ -17,7 +17,7 @@ class NewGameButton extends StatelessWidget {
         content: const Text('هل انت متأكد من انشاء جيم جديد'),
         acceptTitle: 'نعم',
         onAccept: () {
-          NormalGameCubit.of(context).createNewGame();
+          NormalGameCubit.of(context).reGame();
         },
       ),
       data: 'جيم جديد',

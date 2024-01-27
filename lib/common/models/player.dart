@@ -1,10 +1,11 @@
 class Player {
   String name;
   int roundsCounter = 5;
-  List<int?> scores;
+  List<int?> roundsScores;
+  int totalScore = 0;
 
   Player({
     required this.name,
-    required this.scores,
+    required this.roundsScores,
   });
 }

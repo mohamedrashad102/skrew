@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:skrew/features/home/cubit/players_number_cubit.dart';
+import 'package:skrew/features/home/cubits/players_number_cubit.dart';
 
-import '../../cubit/players_name_cubit.dart';
+import '../../cubits/players_name_cubit.dart';
 import 'player_names_text_form.dart';
 
 class PlayersNamesListView extends StatelessWidget {
@@ -18,6 +18,15 @@ class PlayersNamesListView extends StatelessWidget {
             child: PlayerNameTextForm(
               hintText: _getHintText(playerIndex: index),
               labelText: _getLabelText(playerIndex: index),
+              focusNode: PlayersNameCubit.of(context).focusNodes[index],
+              onEditingComplete: () {
+                if (index == PlayersNumberCubit.of(context).playersNumber - 1) {
+                  FocusScope.of(context).unfocus();
+                } else {
+                  FocusScope.of(context).requestFocus(
+                      PlayersNameCubit.of(context).focusNodes[index + 1]);
+                }
+              },
               onChange: (value) => _changePlayerName(
                 context: context,
                 playerIndex: index,

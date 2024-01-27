@@ -8,10 +8,14 @@ class PlayerNameTextForm extends StatelessWidget {
     this.hintText,
     this.labelText,
     this.validator,
+     this.onEditingComplete,
+     this.focusNode,
   });
   final Function(String value)? onChange;
+  final Function()? onEditingComplete;
   final String? hintText;
   final String? labelText;
+  final FocusNode? focusNode;
   final String? Function(String? value)? validator;
   @override
   Widget build(BuildContext context) {
@@ -19,9 +23,11 @@ class PlayerNameTextForm extends StatelessWidget {
       width: 200,
       child: TextFormField(
         onChanged: onChange,
+        onEditingComplete: onEditingComplete,
         validator: validator,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         textAlign: TextAlign.center,
+        focusNode: focusNode,
         textDirection: TextDirection.rtl,
         style: const TextStyle(
           fontSize: 18,
@@ -50,7 +56,7 @@ class PlayerNameTextForm extends StatelessWidget {
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7),
-            borderSide:  BorderSide(
+            borderSide: BorderSide(
               width: 2,
               color: Coloors.nameItemColor,
             ),

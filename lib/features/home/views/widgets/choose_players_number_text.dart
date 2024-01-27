@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ChoosePlayersNumber extends StatelessWidget {
-  const ChoosePlayersNumber({
+class ChoosePlayersNumberText extends StatelessWidget {
+  const ChoosePlayersNumberText({
     super.key,
   });
 
