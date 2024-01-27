@@ -1,21 +1,17 @@
 import 'package:go_router/go_router.dart';
-import 'package:skrew/features/competition_game/views/competition_view/competition_game_view.dart';
-import 'package:skrew/features/home/views/competition_mode_view.dart';
-import 'package:skrew/features/home/views/home_view.dart';
-import 'package:skrew/features/home/views/normal_mode_view.dart';
+import 'package:skrew/features/home/views/players_names_view.dart';
 import 'package:skrew/features/normal_game/views/normal_game_view.dart';
+import 'package:skrew/features/special_game/views/special_game_view.dart';
 import 'package:skrew/features/splash/splash_view.dart';
 
-import '../../features/competition_game/views/result_view/result_view.dart';
+import '../../features/home/views/players_number_view.dart';
 
 abstract class AppRoutes {
   static const String splash = '/';
-  static const String home = '/home';
-  static const String normalMode = '/normalMode';
-  static const String competitionMode = '/competitionMode';
-  static const String competitionGame = '/competitionGame';
+  static const String playersNumber = '/playersNumber';
+  static const String playersNames = '/playersNames';
   static const String normalGame = '/normalGame';
-  static const String result = '/result';
+  static const String specialGame = '/specialGame';
 
   static final route = GoRouter(
     routes: [
@@ -24,30 +20,20 @@ abstract class AppRoutes {
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
-        path: home,
-        builder: (context, state) => const HomeView(),
+        path: playersNumber,
+        builder: (context, state) => const PlayersNumberView(),
       ),
       GoRoute(
-        path: normalMode,
-        builder: (context, state) => const NormalModeView(),
-      ),
-      GoRoute(
-        path: competitionMode,
-        builder: (context, state) => const CompetitionModeView(),
+        path: playersNames,
+        builder: (context, state) => const PlayersNamesView(),
       ),
       GoRoute(
         path: normalGame,
-        builder: (context, state) => NormalGameView(
-          numberOfPlayers: state.extra as int,
-        ),
+        builder: (context, state) => const NormalGameView(),
       ),
       GoRoute(
-        path: competitionGame,
-        builder: (context, state) => const CompetitionGameView(),
-      ),
-      GoRoute(
-        path: result,
-        builder: (context, state) => const ResultView(),
+        path: specialGame,
+        builder: (context, state) => const SpecialGameView(),
       ),
     ],
   );

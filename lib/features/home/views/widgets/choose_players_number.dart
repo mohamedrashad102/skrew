@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/utils/coloors.dart';
-
-class ChooseNumberOfPlayers extends StatelessWidget {
-  const ChooseNumberOfPlayers({
+class ChoosePlayersNumber extends StatelessWidget {
+  const ChoosePlayersNumber({
     super.key,
   });
 
@@ -12,8 +10,8 @@ class ChooseNumberOfPlayers extends StatelessWidget {
     return Text(
       'اختر عدد اللاعبين',
       style: TextStyle(
-        color: Coloors.textColor,
-        fontSize: 30,
+        color: Colors.white.withOpacity(0.9),
+        fontSize: 27,
         fontWeight: FontWeight.bold,
       ),
     );

@@ -1,40 +1,31 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:skrew/features/home/views/widgets/options_item.dart';
+import 'package:skrew/features/home/cubit/players_number_cubit.dart';
+import 'package:skrew/features/home/cubit/players_number_state.dart';
 
-class OptionsList extends StatefulWidget {
-  const OptionsList({
-    super.key,
-    required this.onSelect,
-    required this.options,
-  });
-  final List<String> options;
-  final void Function(int index) onSelect;
+import 'options_item.dart';
 
-  @override
-  State<OptionsList> createState() => _OptionsListState();
-}
+class OptionsList extends StatelessWidget {
+  const OptionsList({super.key});
 
-class _OptionsListState extends State<OptionsList> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemBuilder: (context, index) => OptionsItem(
-        title: widget.options[index],
-        isSelected: currentIndex == index,
-        onTap: () => _selectOption(index: index),
-      ),
-      separatorBuilder: (context, index) => const Gap(5),
-      itemCount: widget.options.length,
+    return BlocBuilder<PlayersNumberCubit, PlayersNumberState>(
+      builder: (context, state) {
+        final cubit = PlayersNumberCubit.of(context);
+        return ListView.separated(
+          padding: const EdgeInsets.all(0),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => OptionsItem(
+            title: PlayersNumberCubit.options[index],
+            isSelected: cubit.currentOptionIndex == index,
+            onTap: () => cubit.selectOption(optionIndex: index),
+          ),
+          separatorBuilder: (context, index) => const Gap(5),
+          itemCount: PlayersNumberCubit.options.length,
+        );
+      },
     );
-  }
-
-  _selectOption({required int index}) {
-    setState(() {
-      currentIndex = index;
-      widget.onSelect(index);
-    });
   }
 }

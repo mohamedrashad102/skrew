@@ -14,6 +14,7 @@ class OptionsItem extends StatelessWidget {
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
+    const double height = 20;
     return Align(
       child: GestureDetector(
         onTap: onTap,
@@ -22,7 +23,7 @@ class OptionsItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7),
-            color: Colors.purple.shade200,
+            color: Coloors.scoreItemColor,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -30,16 +31,43 @@ class OptionsItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.black,
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Gap(10),
-              Icon(
-                isSelected ? Icons.circle_rounded : Icons.circle_outlined,
-                color: isSelected ? Coloors.appBarBgColor : Colors.purple,
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: height,
+                    width: height,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.purple,
+                    ),
+                    padding: const EdgeInsets.all(3),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Coloors.scoreItemColor,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: isSelected,
+                    child: Container(
+                      height: height - 10,
+                      width: height - 10,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const Gap(10),
             ],
