@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../common/constants/random.dart';
 import '../../../../common/utils/coloors.dart';
-import '../../cubit/normal_game_cubit.dart';
-import '../../cubit/normal_game_state.dart';
-import 'custom_table_item.dart';
-import 'custom_table_row.dart';
+import '../../../../common/widgets/custom_table_item.dart';
+import '../../cubits/normal_game_cubit.dart';
+import '../../cubits/normal_game_state.dart';
 
 class PlayersScoresRow extends StatelessWidget {
   const PlayersScoresRow({
@@ -18,34 +18,36 @@ class PlayersScoresRow extends StatelessWidget {
     return BlocBuilder<NormalGameCubit, NormalGameState>(
       builder: (context, state) {
         final cubit = NormalGameCubit.of(context);
-        return CustomTableRow(
+        return Row(
           children: [
             ...cubit.players.asMap().entries.map(
-                  (entry) => Expanded(
-                    child: CustomTableItem(
-                      color:
-                          cubit.players[entry.key].roundsScores[roundIndex] == 0
-                              ? Coloors.darkGreen
-                              : Coloors.scoreItemColor,
-                      controller: cubit.playersScoresControllers[entry.key]
-                          [roundIndex],
-                      onlyNumbers: true,
-                      onChange: (value) => cubit.changePlayerScore(
-                        score: value,
-                        roundIndex: roundIndex,
-                        playerIndex: entry.key,
-                      ),
-                    ),
+              (entry) {
+                final playerIndex = entry.key;
+                final player = entry.value;
+                return CustomTableItem(
+                  color: !player.roundsStates[roundIndex]
+                      ? Coloors.darkGray
+                      : player.roundsScores[roundIndex] == 0
+                          ? Coloors.darkGreen
+                          : Coloors.scoreItemColor,
+                  
+                  controller: cubit.playersScoresControllers[playerIndex]
+                      [roundIndex],
+                  onlyNumbers: true,
+                  onChange: (value) => cubit.changePlayerScore(
+                    score: value,
+                    roundIndex: roundIndex,
+                    playerIndex: playerIndex,
                   ),
-                ),
-            Expanded(
-              child: CustomTableItem(
-                color: Coloors.darkGray,
-                isRight: true,
-                enable: false,
-                initialValue:
-                    'الجوله ${NormalGameCubit.numbersInArabic[roundIndex]}',
-              ),
+                  enable: player.roundsStates[roundIndex],
+                );
+              },
+            ),
+            CustomTableItem(
+              color: Coloors.lightBlue,
+              isRight: true,
+              enable: false,
+              initialValue: 'الجوله ${roundsNumbersInArabic[roundIndex]}',
             ),
           ],
         );

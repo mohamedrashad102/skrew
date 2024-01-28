@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/utils/coloors.dart';
-import '../../cubit/normal_game_cubit.dart';
-import '../../cubit/normal_game_state.dart';
-import 'custom_table_item.dart';
-import 'custom_table_row.dart';
+import '../../../../common/widgets/custom_table_item.dart';
+import '../../cubits/normal_game_cubit.dart';
+import '../../cubits/normal_game_state.dart';
 
 class TotalScoreRow extends StatelessWidget {
   const TotalScoreRow({super.key});
@@ -15,28 +14,29 @@ class TotalScoreRow extends StatelessWidget {
     return BlocBuilder<NormalGameCubit, NormalGameState>(
       builder: (context, state) {
         final cubit = NormalGameCubit.of(context);
-        return CustomTableRow(
+        return Row(
           children: [
             ...cubit.players.asMap().entries.map(
-                  (entry) => Expanded(
-                    child: CustomTableItem(
-                      color: cubit.isWinner(playerIndex: entry.key) 
-                          ? Coloors.darkGreen
-                          : Coloors.scoreItemColor,
-                      isLast: true,
-                      enable: false,
-                      controller: cubit.totalScoresControllers[entry.key],
-                    ),
-                  ),
-                ),
-            Expanded(
-              child: CustomTableItem(
-                color: Coloors.darkGray,
-                initialValue: 'المجموع',
-                isRight: true,
-                isLast: true,
-                enable: false,
-              ),
+              (entry) {
+                final playerIndex = entry.key;
+                return CustomTableItem(
+                  color: cubit.isWinner(playerIndex: playerIndex)
+                      ? Coloors.darkGreen
+                      : Coloors.scoreItemColor,
+                  isLast: true,
+                  enable: false,
+                  controller: cubit.totalScoresControllers[playerIndex],
+                );
+              },
+            ),
+            CustomTableItem(
+              color: Coloors.lightOrange,
+              textColor: Colors.black,
+              initialValue: 'المجموع',
+              isRight: true,
+              isLast: true,
+              enable: false,
+              
             ),
           ],
         );

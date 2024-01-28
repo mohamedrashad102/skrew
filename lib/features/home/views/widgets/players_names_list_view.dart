@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skrew/features/home/cubits/players_number_cubit.dart';
 
+import '../../../../common/constants/random.dart';
 import '../../cubits/players_name_cubit.dart';
 import 'player_names_text_form.dart';
 
@@ -13,11 +14,14 @@ class PlayersNamesListView extends StatelessWidget {
       key: PlayersNameCubit.of(context).formKey,
       child: ListView.separated(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(0),
         itemBuilder: (context, index) {
           return Align(
             child: PlayerNameTextForm(
               hintText: _getHintText(playerIndex: index),
               labelText: _getLabelText(playerIndex: index),
+              autofocus: index == 0,
               focusNode: PlayersNameCubit.of(context).focusNodes[index],
               onEditingComplete: () {
                 if (index == PlayersNumberCubit.of(context).playersNumber - 1) {
@@ -77,10 +81,10 @@ class PlayersNamesListView extends StatelessWidget {
   }
 
   String _getHintText({required int playerIndex}) {
-    return 'ادخل اسم اللاعب ${PlayersNameCubit.numbersInArabic[playerIndex]}';
+    return 'ادخل اسم اللاعب ${playersNumbersInArabic[playerIndex]}';
   }
 
   String _getLabelText({required int playerIndex}) {
-    return 'اللاعب ${PlayersNameCubit.numbersInArabic[playerIndex]}';
+    return 'اللاعب ${playersNumbersInArabic[playerIndex]}';
   }
 }

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/utils/coloors.dart';
-import '../../cubit/normal_game_cubit.dart';
-import '../../cubit/normal_game_state.dart';
-import 'custom_table_item.dart';
-import 'custom_table_row.dart';
+import '../../../../common/widgets/custom_table_item.dart';
+import '../../cubits/normal_game_cubit.dart';
+import '../../cubits/normal_game_state.dart';
 
 class PlayersNamesRow extends StatelessWidget {
   const PlayersNamesRow({
@@ -17,22 +16,18 @@ class PlayersNamesRow extends StatelessWidget {
     return BlocBuilder<NormalGameCubit, NormalGameState>(
       builder: (context, state) {
         final cubit = NormalGameCubit.of(context);
-        return CustomTableRow(
+        return Row(
           children: [
             ...cubit.players.map(
-              (player) => Expanded(
-                child: CustomTableItem(
-                  color: Coloors.nameItemColor,
-                  initialValue: player.name,
-                ),
+              (player) => CustomTableItem(
+                color: Coloors.nameItemColor,
+                initialValue: player.name,
               ),
             ),
-            Expanded(
-              child: CustomTableItem(
-                color: Coloors.darkGray,
-                isRight: true,
-                enable: false,
-              ),
+            CustomTableItem(
+              color: Coloors.lightOrange,
+              isRight: true,
+              enable: false,
             ),
           ],
         );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/custom_button.dart';
+import '../../../../common/widgets/custom_text_button.dart';
 import '../../../../common/widgets/show_alert_dialog.dart';
-import '../../cubit/normal_game_cubit.dart';
+import '../../cubits/normal_game_cubit.dart';
 
 class NewGameButton extends StatelessWidget {
   const NewGameButton({
@@ -11,7 +11,7 @@ class NewGameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
+    return CustomTextButton(
       onTap: () => showAlertDialog(
         context,
         content: const Text('هل انت متأكد من انشاء جيم جديد'),

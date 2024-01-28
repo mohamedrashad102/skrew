@@ -30,48 +30,4 @@ class PlayersNumberCubit extends Cubit<PlayersNumberState> {
   bool isNormalGame() {
     return playersNumber <= 4;
   }
-
-  // static const roundsNumber = 5;
-  // static const List<String> options = [
-  //   'لاعبين اثنين',
-  //   'ثلاثة لاعبين',
-  //   'أربعة لاعبين',
-  //   'خمسة لاعبين',
-  //   'ستة لاعبين',
-  //   'سبعة لاعبين',
-  //   'ثمانية لاعبين',
-  // ];
-  // int playersNumber = 2;
-  // final List<Player> players = [];
-
-  // editPlayersNumber({required int playersNumber}) {
-  //   this.playersNumber = playersNumber;
-  //   emit(HomeSuccessState());
-  // }
-
-  // generatePlayers() {
-  //   players
-  //     ..clear()
-  //     ..addAll(
-  //       List.generate(
-  //         playersNumber,
-  //         (index) => Player(
-  //           name: '',
-  //           scores: List.generate(
-  //             roundsNumber,
-  //             (index) => null,
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   emit(HomeSuccessState());
-  // }
-
-  // editPlayerName({
-  //   required int playerIndex,
-  //   required String playerName,
-  // }) {
-  //   players[playerIndex].name = playerName;
-  //   emit(HomeSuccessState());
-  // }
 }

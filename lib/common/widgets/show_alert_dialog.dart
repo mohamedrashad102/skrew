@@ -15,10 +15,12 @@ showAlertDialog(
       return AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             content ?? const SizedBox(),
             content != null ? const Gap(5) : const SizedBox(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   onPressed: () {

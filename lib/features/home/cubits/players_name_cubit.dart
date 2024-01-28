@@ -7,16 +7,7 @@ class PlayersNameCubit extends Cubit<PlayersNamesState> {
 
   static PlayersNameCubit of(BuildContext context) =>
       BlocProvider.of<PlayersNameCubit>(context);
-  static const List<String> numbersInArabic = [
-    'الأول',
-    'الثاني',
-    'الثالث',
-    'الرابع',
-    'الخامس',
-    'السادس',
-    'السابع',
-    'الثامن',
-  ];
+
   final List<String> playersNames = [];
   final List<FocusNode> focusNodes = [];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

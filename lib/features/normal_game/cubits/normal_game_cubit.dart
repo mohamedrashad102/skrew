@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skrew/common/models/player.dart';
+import 'package:skrew/features/normal_game/mangers/game_manger.dart';
 
 import 'normal_game_state.dart';
 
@@ -10,16 +11,10 @@ class NormalGameCubit extends Cubit<NormalGameState> {
   NormalGameCubit() : super(NormalGameInitialState());
   static NormalGameCubit of(BuildContext context) =>
       BlocProvider.of<NormalGameCubit>(context);
-  static const List<String> numbersInArabic = [
-    'الاولى',
-    'الثانية',
-    'الثالثة',
-    'الرابعة',
-    'الخامسة',
-  ];
 
-  static const int roundsNumber = 5;
+  late int roundsNumber;
   final List<Player> players = [];
+  late bool isSpecialGame;
   final List<List<TextEditingController>> playersScoresControllers = [];
   final List<TextEditingController> totalScoresControllers = [];
 
@@ -27,24 +22,32 @@ class NormalGameCubit extends Cubit<NormalGameState> {
     required int playersNumber,
     required List<String> playersNames,
   }) {
-    _initPlayers(playersNumber, playersNames);
+    isSpecialGame = playersNumber > 4;
+    if (isSpecialGame) {
+      _initSpecialPlayers(playersNames);
+    } else {
+      _initNormalPlayers(playersNames);
+    }
     _initPlayersScoresControllers(playersNumber);
     _initTotalScoresControllers(playersNumber);
     emit(NormalGameSuccessState());
   }
 
   void reGame() {
+    final playersNames = players.map((player) => player.name).toList();
+    if (isSpecialGame) {
+      _initSpecialPlayers(playersNames);
+    } else {
+      _initNormalPlayers(playersNames);
+    }
     _clearPlayersScores();
     _clearScoresControllers();
     emit(NormalGameSuccessState());
   }
 
   void disposePlayersControllers() {
-    for (int i = 0; i < playersScoresControllers.length; i++) {
-      for (int j = 0; j < roundsNumber; j++) {
-        playersScoresControllers[i][j].dispose();
-      }
-    }
+    totalScoresControllers.clear();
+    playersScoresControllers.clear();
   }
 
   void changePlayerName({
@@ -61,7 +64,7 @@ class NormalGameCubit extends Cubit<NormalGameState> {
     required int playerIndex,
   }) {
     players[playerIndex].roundsScores[roundIndex] =
-        score == null ? null : int.tryParse(score);
+        score == null || score.isEmpty ? null : int.tryParse(score);
     playersScoresControllers[playerIndex][roundIndex].text =
         score == null || score.isEmpty ? '' : int.parse(score).toString();
     final String totalScore =
@@ -121,7 +124,7 @@ class NormalGameCubit extends Cubit<NormalGameState> {
       ..addAll(
         List.generate(
           playersNumber,
-          (index) => TextEditingController(text: '0'),
+          (_) => TextEditingController(text: '0'),
         ),
       );
   }
@@ -140,17 +143,47 @@ class NormalGameCubit extends Cubit<NormalGameState> {
       );
   }
 
-  void _initPlayers(int playersNumber, List<String> playersNames) {
+  void _initNormalPlayers(List<String> playersNames) {
+    roundsNumber = 5;
     players
       ..clear()
       ..addAll(
         List.generate(
-          playersNumber,
+          playersNames.length,
           (index) => Player(
             name: playersNames[index],
-            roundsScores: List.generate(
+            roundsStates: List.filled(
               roundsNumber,
-              (index) => null,
+              true,
+            ),
+            roundsScores: List.filled(
+              roundsNumber,
+              null,
+            ),
+          ),
+        ),
+      );
+  }
+
+  void _initSpecialPlayers(List<String> playersNames) {
+    final result = RoundManger.generateRounds(playersNames: playersNames);
+    roundsNumber =
+        RoundManger.determineRoundNumbers(playersNumber: playersNames.length);
+
+    players
+      ..clear()
+      ..addAll(
+        List.generate(
+          playersNames.length,
+          (playerIndex) => Player(
+            name: playersNames[playerIndex],
+            roundsStates: List.generate(
+              roundsNumber,
+              (roundIndex) => result[playerIndex].contains(roundIndex),
+            ),
+            roundsScores: List.filled(
+              roundsNumber,
+              null,
             ),
           ),
         ),

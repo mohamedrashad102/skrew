@@ -23,7 +23,7 @@ class _SplashViewState extends State<SplashView>
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: const Offset(0.0, -3),
+      begin: const Offset(0.0, -2),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
@@ -33,7 +33,7 @@ class _SplashViewState extends State<SplashView>
     _controller.forward();
 
     Future.delayed(
-      const Duration(seconds: 1, milliseconds: 500),
+      const Duration(seconds: 1, milliseconds: 200),
       _navigateToHomeScreen,
     );
     super.initState();

@@ -10,6 +10,7 @@ class PlayerNameTextForm extends StatelessWidget {
     this.validator,
      this.onEditingComplete,
      this.focusNode,
+     this.autofocus,
   });
   final Function(String value)? onChange;
   final Function()? onEditingComplete;
@@ -17,12 +18,14 @@ class PlayerNameTextForm extends StatelessWidget {
   final String? labelText;
   final FocusNode? focusNode;
   final String? Function(String? value)? validator;
+  final bool? autofocus;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 200,
       child: TextFormField(
         onChanged: onChange,
+        autofocus: autofocus ?? false,
         onEditingComplete: onEditingComplete,
         validator: validator,
         autovalidateMode: AutovalidateMode.onUserInteraction,
