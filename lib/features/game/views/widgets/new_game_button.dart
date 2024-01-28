@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_text_button.dart';
 import '../../../../common/widgets/show_alert_dialog.dart';
-import '../../cubits/normal_game_cubit.dart';
+import '../../cubits/game_cubit.dart';
 
 class NewGameButton extends StatelessWidget {
   const NewGameButton({
@@ -17,7 +17,7 @@ class NewGameButton extends StatelessWidget {
         content: const Text('هل انت متأكد من انشاء جيم جديد'),
         acceptTitle: 'نعم',
         onAccept: () {
-          NormalGameCubit.of(context).reGame();
+          GameCubit.of(context).reGame();
         },
       ),
       data: 'جيم جديد',

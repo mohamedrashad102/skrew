@@ -3,17 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/utils/coloors.dart';
 import '../../../../common/widgets/custom_table_item.dart';
-import '../../cubits/normal_game_cubit.dart';
-import '../../cubits/normal_game_state.dart';
+import '../../cubits/game_cubit.dart';
+import '../../cubits/game_state.dart';
 
 class TotalScoreRow extends StatelessWidget {
   const TotalScoreRow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NormalGameCubit, NormalGameState>(
+    return BlocBuilder<GameCubit, GameState>(
       builder: (context, state) {
-        final cubit = NormalGameCubit.of(context);
+        final cubit = GameCubit.of(context);
         return Row(
           children: [
             ...cubit.players.asMap().entries.map(
@@ -36,7 +36,6 @@ class TotalScoreRow extends StatelessWidget {
               isRight: true,
               isLast: true,
               enable: false,
-              
             ),
           ],
         );

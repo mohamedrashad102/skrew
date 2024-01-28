@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skrew/common/models/player.dart';
-import 'package:skrew/features/normal_game/mangers/game_manger.dart';
 
-import 'normal_game_state.dart';
+import '../mangers/game_manger.dart';
+import 'game_state.dart';
 
-class NormalGameCubit extends Cubit<NormalGameState> {
-  NormalGameCubit() : super(NormalGameInitialState());
-  static NormalGameCubit of(BuildContext context) =>
-      BlocProvider.of<NormalGameCubit>(context);
+class GameCubit extends Cubit<GameState> {
+  GameCubit() : super(GameInitialState());
+  static GameCubit of(BuildContext context) =>
+      BlocProvider.of<GameCubit>(context);
 
   late int roundsNumber;
   final List<Player> players = [];
@@ -30,7 +30,7 @@ class NormalGameCubit extends Cubit<NormalGameState> {
     }
     _initPlayersScoresControllers(playersNumber);
     _initTotalScoresControllers(playersNumber);
-    emit(NormalGameSuccessState());
+    emit(GameSuccessState());
   }
 
   void reGame() {
@@ -42,7 +42,7 @@ class NormalGameCubit extends Cubit<NormalGameState> {
     }
     _clearPlayersScores();
     _clearScoresControllers();
-    emit(NormalGameSuccessState());
+    emit(GameSuccessState());
   }
 
   void disposePlayersControllers() {
@@ -55,7 +55,7 @@ class NormalGameCubit extends Cubit<NormalGameState> {
     required int playerIndex,
   }) {
     players[playerIndex].name = playerName;
-    emit(NormalGameSuccessState());
+    emit(GameSuccessState());
   }
 
   void changePlayerScore({
@@ -70,7 +70,7 @@ class NormalGameCubit extends Cubit<NormalGameState> {
     final String totalScore =
         _getTotalScore(playerIndex: playerIndex).toString();
     totalScoresControllers[playerIndex].text = totalScore;
-    emit(NormalGameSuccessState());
+    emit(GameSuccessState());
   }
 
   bool isWinner({required int playerIndex}) {

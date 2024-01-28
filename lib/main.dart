@@ -5,7 +5,7 @@ import 'package:skrew/common/theme/dark_theme.dart';
 import 'package:skrew/features/home/cubits/players_name_cubit.dart';
 import 'package:skrew/features/home/cubits/players_number_cubit.dart';
 
-import 'features/normal_game/cubits/normal_game_cubit.dart';
+import 'features/game/cubits/game_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => PlayersNumberCubit()),
         BlocProvider(create: (context) => PlayersNameCubit()),
-        BlocProvider(create: (context) => NormalGameCubit()),
+        BlocProvider(create: (context) => GameCubit()),
       ],
       child: MaterialApp.router(
         darkTheme: darkTheme,

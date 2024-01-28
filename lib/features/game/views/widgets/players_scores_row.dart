@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/constants/random.dart';
 import '../../../../common/utils/coloors.dart';
 import '../../../../common/widgets/custom_table_item.dart';
-import '../../cubits/normal_game_cubit.dart';
-import '../../cubits/normal_game_state.dart';
+import '../../cubits/game_cubit.dart';
+import '../../cubits/game_state.dart';
 
 class PlayersScoresRow extends StatelessWidget {
   const PlayersScoresRow({
@@ -15,9 +15,9 @@ class PlayersScoresRow extends StatelessWidget {
   final int roundIndex;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NormalGameCubit, NormalGameState>(
+    return BlocBuilder<GameCubit, GameState>(
       builder: (context, state) {
-        final cubit = NormalGameCubit.of(context);
+        final cubit = GameCubit.of(context);
         return Row(
           children: [
             ...cubit.players.asMap().entries.map(
@@ -30,7 +30,6 @@ class PlayersScoresRow extends StatelessWidget {
                       : player.roundsScores[roundIndex] == 0
                           ? Coloors.darkGreen
                           : Coloors.scoreItemColor,
-                  
                   controller: cubit.playersScoresControllers[playerIndex]
                       [roundIndex],
                   onlyNumbers: true,

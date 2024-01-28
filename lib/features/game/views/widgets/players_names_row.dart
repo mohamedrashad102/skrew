@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/utils/coloors.dart';
 import '../../../../common/widgets/custom_table_item.dart';
-import '../../cubits/normal_game_cubit.dart';
-import '../../cubits/normal_game_state.dart';
+import '../../cubits/game_cubit.dart';
+import '../../cubits/game_state.dart';
 
 class PlayersNamesRow extends StatelessWidget {
   const PlayersNamesRow({
@@ -13,9 +13,9 @@ class PlayersNamesRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NormalGameCubit, NormalGameState>(
+    return BlocBuilder<GameCubit, GameState>(
       builder: (context, state) {
-        final cubit = NormalGameCubit.of(context);
+        final cubit = GameCubit.of(context);
         return Row(
           children: [
             ...cubit.players.map(

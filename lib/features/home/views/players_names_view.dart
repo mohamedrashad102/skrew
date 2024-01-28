@@ -7,7 +7,7 @@ import 'package:skrew/features/home/cubits/players_name_cubit.dart';
 import 'package:skrew/features/home/cubits/players_number_cubit.dart';
 import 'package:skrew/features/home/views/widgets/players_names_list_view.dart';
 
-import '../../normal_game/cubits/normal_game_cubit.dart';
+import '../../game/cubits/game_cubit.dart';
 
 class PlayersNamesView extends StatelessWidget {
   const PlayersNamesView({super.key});
@@ -48,7 +48,7 @@ class PlayersNamesView extends StatelessWidget {
   }
 
   void _startGame(BuildContext context) {
-    NormalGameCubit.of(context).initializePlayers(
+    GameCubit.of(context).initializePlayers(
       playersNames: PlayersNameCubit.of(context).playersNames.reversed.toList(),
       playersNumber: PlayersNumberCubit.of(context).playersNumber,
     );

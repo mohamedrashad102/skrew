@@ -1,4 +1,4 @@
-import 'player_manger.dart';
+import '../../../common/models/player_manger.dart';
 
 abstract class RoundManger {
   static late String _trace;
