@@ -17,11 +17,24 @@ class PlayersNamesRow extends StatelessWidget {
       builder: (context, state) {
         final cubit = GameCubit.of(context);
         return Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ...cubit.players.map(
-              (player) => CustomTableItem(
-                color: Coloors.nameItemColor,
-                initialValue: player.name,
+              (player) => Column(
+                children: [
+                  Visibility(
+                    visible: cubit.isSpecialGame &&
+                        cubit.currentRoundIndex != null &&
+                        player.roundsStates[cubit.currentRoundIndex!],
+                    child: const Icon(
+                      Icons.arrow_downward,
+                    ),
+                  ),
+                  CustomTableItem(
+                    color: Coloors.nameItemColor,
+                    initialValue: player.name,
+                  ),
+                ],
               ),
             ),
             CustomTableItem(

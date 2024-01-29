@@ -19,6 +19,7 @@ class PlayersScoresRow extends StatelessWidget {
       builder: (context, state) {
         final cubit = GameCubit.of(context);
         return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ...cubit.players.asMap().entries.map(
               (entry) {
@@ -32,6 +33,13 @@ class PlayersScoresRow extends StatelessWidget {
                           : Coloors.scoreItemColor,
                   controller: cubit.playersScoresControllers[playerIndex]
                       [roundIndex],
+                  focusNode: cubit.playersScoresNodes[playerIndex][roundIndex],
+                  onEditingComplete: () => cubit.toNextNode(
+                    context: context,
+                    playerIndex: playerIndex,
+                    roundIndex: roundIndex,
+                  ),
+                  onTap: () => cubit.selectRound(roundIndex: roundIndex),
                   onlyNumbers: true,
                   onChange: (value) => cubit.changePlayerScore(
                     score: value,
@@ -46,8 +54,16 @@ class PlayersScoresRow extends StatelessWidget {
               color: Coloors.lightBlue,
               isRight: true,
               enable: false,
+              onTap: () => cubit.selectRound(roundIndex: roundIndex),
               initialValue: 'الجوله ${roundsNumbersInArabic[roundIndex]}',
             ),
+            Visibility(
+              visible:
+                  cubit.isSpecialGame && cubit.currentRoundIndex == roundIndex,
+              child: const Icon(
+                Icons.arrow_back,
+              ),
+            )
           ],
         );
       },

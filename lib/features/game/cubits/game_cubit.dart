@@ -13,10 +13,13 @@ class GameCubit extends Cubit<GameState> {
       BlocProvider.of<GameCubit>(context);
 
   late int roundsNumber;
-  final List<Player> players = [];
   late bool isSpecialGame;
-  final List<List<TextEditingController>> playersScoresControllers = [];
+  int? currentRoundIndex = 0;
+  final List<Player> players = [];
+  final List<bool> currentRoundPlayers = [];
+  final List<List<FocusNode>> playersScoresNodes = [];
   final List<TextEditingController> totalScoresControllers = [];
+  final List<List<TextEditingController>> playersScoresControllers = [];
 
   void initializePlayers({
     required int playersNumber,
@@ -28,6 +31,7 @@ class GameCubit extends Cubit<GameState> {
     } else {
       _initNormalPlayers(playersNames);
     }
+    _initPlayersScoresNodes(playersNumber);
     _initPlayersScoresControllers(playersNumber);
     _initTotalScoresControllers(playersNumber);
     emit(GameSuccessState());
@@ -50,6 +54,10 @@ class GameCubit extends Cubit<GameState> {
     playersScoresControllers.clear();
   }
 
+  void disposePlayersNodes() {
+    playersScoresNodes.clear();
+  }
+
   void changePlayerName({
     required String playerName,
     required int playerIndex,
@@ -63,6 +71,7 @@ class GameCubit extends Cubit<GameState> {
     required int roundIndex,
     required int playerIndex,
   }) {
+    currentRoundIndex = roundIndex;
     players[playerIndex].roundsScores[roundIndex] =
         score == null || score.isEmpty ? null : int.tryParse(score);
     playersScoresControllers[playerIndex][roundIndex].text =
@@ -72,6 +81,38 @@ class GameCubit extends Cubit<GameState> {
     totalScoresControllers[playerIndex].text = totalScore;
     emit(GameSuccessState());
   }
+
+  void toNextNode({
+    required BuildContext context,
+    required int playerIndex,
+    required int roundIndex,
+  }) {
+    int nextPlayerIndex = playerIndex - 1;
+    while (nextPlayerIndex >= 0 &&
+        players[nextPlayerIndex].roundsStates[roundIndex] == false) {
+      nextPlayerIndex--;
+    }
+    if (nextPlayerIndex >= 0) {
+      final nextNode = playersScoresNodes[nextPlayerIndex][roundIndex];
+      FocusScope.of(context).requestFocus(nextNode);
+    } else {
+      if (currentRoundIndex! + 1 < roundsNumber) {
+        currentRoundIndex = currentRoundIndex! + 1;
+      } else {
+        currentRoundIndex = null;
+      }
+      FocusScope.of(context).unfocus();
+    }
+    emit(GameSuccessState());
+  }
+
+  void selectRound({
+    required int? roundIndex,
+  }) {
+    currentRoundIndex = roundIndex;
+    emit(GameSuccessState());
+  }
+
 
   bool isWinner({required int playerIndex}) {
     final winners = _getWinnersIndexes();
@@ -125,6 +166,20 @@ class GameCubit extends Cubit<GameState> {
         List.generate(
           playersNumber,
           (_) => TextEditingController(text: '0'),
+        ),
+      );
+  }
+
+  void _initPlayersScoresNodes(int playersNumber) {
+    playersScoresNodes
+      ..clear()
+      ..addAll(
+        List.generate(
+          playersNumber,
+          (index) => List.generate(
+            roundsNumber,
+            (index) => FocusNode(),
+          ),
         ),
       );
   }

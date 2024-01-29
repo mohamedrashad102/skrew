@@ -33,6 +33,7 @@ class TotalScoreRow extends StatelessWidget {
               color: Coloors.lightOrange,
               textColor: Colors.black,
               initialValue: 'المجموع',
+              onTap: () => cubit.selectRound(roundIndex: null),
               isRight: true,
               isLast: true,
               enable: false,

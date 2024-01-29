@@ -21,3 +21,5 @@ const List<String> roundsNumbersInArabic = [
   'التاسعة',
   'العاشرة',
 ];
+
+const double tableItemWidth = 150;

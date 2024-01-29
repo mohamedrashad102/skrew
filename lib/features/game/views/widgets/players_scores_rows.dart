@@ -13,6 +13,7 @@ class PlayersScoresRows extends StatelessWidget {
     return BlocBuilder<GameCubit, GameState>(
       builder: (context, state) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
             GameCubit.of(context).roundsNumber,
             (index) => PlayersScoresRow(roundIndex: index),
